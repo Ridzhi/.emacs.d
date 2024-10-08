@@ -29,12 +29,13 @@
 
 (use-package which-key
   :ensure t
-  :init (which-key-mode)
+  :init
+  (which-key-mode)
   :custom
   (which-key-idle-delay 0.3)
-  ;;:config
-  ;;(which-key-setup-side-window-right)
-  )
+  :config
+  (setq which-key-popup-type 'side-window)
+  (which-key-setup-side-window-right))
 
 (use-package golden-ratio
   :ensure t
