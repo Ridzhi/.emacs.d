@@ -11,7 +11,7 @@
  ;; If there is more than one, they won't work right.
  '(delete-selection-mode t)
  '(display-line-numbers t)
- '(package-selected-packages '(rust-mode)))
+ '(package-selected-packages '(go-mode rust-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -44,6 +44,12 @@
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
+
+(use-package treemacs
+  :ensure t
+ )
+
+(treemacs-start-on-boot)
 
 (use-package dashboard
   :ensure t
@@ -82,6 +88,7 @@
   :config
   (setq lsp-inlay-hint-enable t)
   (setq lsp-rust-analyzer-binding-mode-hints t)
+  (lsp-enable-which-key-integration t)
   :hook
   (rust-mode . lsp)
   :commands lsp)
@@ -101,3 +108,7 @@
   :custom
   (rust-format-on-save t))
 
+(use-package go-mode
+  :ensure t
+  :hook
+  (go-mode . lsp-deferred))
