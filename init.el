@@ -45,11 +45,6 @@
   :ensure t
   :if (display-graphic-p))
 
-(use-package treemacs
-  :ensure t
- )
-
-(treemacs-start-on-boot)
 
 (use-package dashboard
   :ensure t
@@ -60,17 +55,21 @@
   (dashboard-set-heading-icons t)
   (dashboard-icon-type 'all-the-icons)
   (dashboard-set-file-icons t)
-  (dashboard-projects-backend 'projectile)
   (dashboard-items '(
+		     (projects . 10)
                      (recents . 5)
                      (bookmarks . 5)
                      ))
   (dashboard-item-generators '(
+			       (projects . dashboard-insert-projects)
 			       (recents . dashboard-insert-recents)
                                (bookmarks . dashboard-insert-bookmarks)
                               ))
   :config
   (dashboard-setup-startup-hook))
+
+(use-package yasnippet
+  :ensure t)
 
 ;; Bindings
 (global-set-key [remap list-buffers] 'ibuffer)
@@ -99,7 +98,6 @@
   (setq company-idle-delay 0.5))
 
 (use-package flycheck :ensure t)
-
 
 (use-package rust-mode
   :ensure t
