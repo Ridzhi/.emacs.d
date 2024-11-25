@@ -11,13 +11,16 @@
  ;; If there is more than one, they won't work right.
  '(delete-selection-mode t)
  '(display-line-numbers t)
- '(package-selected-packages '(go-mode rust-mode)))
+ '(package-selected-packages
+   '(company-files php-mode kanagawa-themes doom-themes timu-macos-theme dracula-theme solarized-theme monokai-theme go-mode rust-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#3F3F3F" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 120 :width normal :foundry "nil" :family "JetBrains Mono")))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#3F3F3F" :foreground "#DCDCCC" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 130 :width normal :foundry "nil" :family "JetBrains Mono")))))
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq inhibit-startup-screen t)
 (setq require-final-newline t)
@@ -36,10 +39,6 @@
   :config
   (setq which-key-popup-type 'side-window)
   (which-key-setup-side-window-right))
-
-(use-package golden-ratio
-  :ensure t
-  :hook (after-init . golden-ratio-mode))
 
 (use-package all-the-icons
   :ensure t
@@ -71,22 +70,31 @@
 (use-package yasnippet
   :ensure t)
 
+(yas-global-mode 1)
+
 ;; Bindings
 (global-set-key [remap list-buffers] 'ibuffer)
 
 
 ;; Themes
-(use-package zenburn-theme
-	:ensure t
-	:config
-	(load-theme 'zenburn t))
+;;(use-package zenburn-theme
+;;	:ensure t
+;;	:config
+;;	(load-theme 'zenburn t))
+
+;; Themes
+;;(use-package kaolin-themes
+;;	:ensure t
+;;	:config
+;;	(load-theme 'kaolin-valley-dark t))
+
+(load-theme 'zenburn t)
 
 ;; Programming
 (use-package lsp-mode
   :ensure t
   :config
   (setq lsp-inlay-hint-enable t)
-  (setq lsp-rust-analyzer-binding-mode-hints t)
   (lsp-enable-which-key-integration t)
   :hook
   (rust-mode . lsp)
@@ -103,6 +111,8 @@
   :ensure t
   :init
   (setq rust-mode-treesitter-derive t)
+  :config
+  (setq lsp-rust-analyzer-binding-mode-hints t)
   :custom
   (rust-format-on-save t))
 
@@ -110,3 +120,6 @@
   :ensure t
   :hook
   (go-mode . lsp-deferred))
+
+(use-package php-mode
+  :ensure t)
