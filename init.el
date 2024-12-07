@@ -12,7 +12,7 @@
  '(delete-selection-mode t)
  '(display-line-numbers t)
  '(package-selected-packages
-   '(company-files php-mode kanagawa-themes doom-themes timu-macos-theme dracula-theme solarized-theme monokai-theme go-mode rust-mode)))
+   '(lsp-ui company-files php-mode kanagawa-themes doom-themes timu-macos-theme dracula-theme solarized-theme monokai-theme go-mode rust-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -55,9 +55,9 @@
   (dashboard-icon-type 'all-the-icons)
   (dashboard-set-file-icons t)
   (dashboard-items '(
-		     (projects . 10)
-                     (recents . 5)
-                     (bookmarks . 5)
+		     (projects . 20)
+                     (recents . 10)
+                     (bookmarks . 50)
                      ))
   (dashboard-item-generators '(
 			       (projects . dashboard-insert-projects)
@@ -100,6 +100,12 @@
   (rust-mode . lsp)
   :commands lsp)
 
+(use-package lsp-ui :ensure t)
+
+(define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+(define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+
+
 (use-package company
   :ensure t
   :config
@@ -122,4 +128,6 @@
   (go-mode . lsp-deferred))
 
 (use-package php-mode
-  :ensure t)
+  :ensure t
+  :hook
+  (php-mode . lsp))
